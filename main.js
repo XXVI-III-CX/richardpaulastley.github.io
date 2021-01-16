@@ -563,8 +563,9 @@ const makePoke = (pokeModel, initialLevel, initialExp, shiny) => {
         , avgDefense: avgDefense
         , takeDamage: (enemyAttack) => {
             const damageToTake = (enemyAttack - avgDefense() / 10) > 0
-                && Math.ceil((enemyAttack - avgDefense() / 10) * ((Math.random() + 0.1) * 2) / 100)
-                || 0
+                && Math.ceil((enemyAttack - avgDefense() / 10) *
+                // reduces damage range and changes to a normal distribution ~XXVI_III_CX
+                ((Math.random() + -1 * Math.random()) / 3 + 1.1) / 100) || 0
             combat.mutable.hp -= damageToTake
             return damageToTake
         }
