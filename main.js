@@ -1203,7 +1203,7 @@ const makeCombatLoop = (enemy, player, dom) => {
   var enemyActivePoke = enemy.activePoke()
   var playerTimerId = null
   var enemyTimerId = null
-  var catchEnabled = false
+  var catchEnabled = 'new' // defaults to catching new pokemon ~XXVI_III_CX
   const playerTimer = () => {
     playerTimerId = window.setTimeout(
       () => dealDamage(playerActivePoke, enemyActivePoke, 'player')
