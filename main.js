@@ -38,7 +38,7 @@ let statistics = {
 
 const RNG = (func, chance) => {
     const rnd = Math.random() * 100
-    if (rnd < chance) {
+    if (rnd <= chance) { // now allows 100% chance by including the equality case ~XXVI_III_CX
         func()
         return true
     }
@@ -1255,7 +1255,8 @@ const makeCombatLoop = (enemy, player, dom) => {
                 } else {
                     statistics.beaten++;
                 }
-                if (catchEnabled == 'all' || (catchEnabled == 'new' && !player.hasPokemon(enemy.activePoke().pokeId(), 0)) || enemy.activePoke().shiny()) {
+                // will always attempt to catch a shiny ~XXVI_III_CX
+                if (enemy.activePoke().shiny() || catchEnabled == 'all' || (catchEnabled == 'new' && !player.hasPokemon(enemy.activePoke().pokeId(), 0)) || enemy.activePoke().shiny()) {
                     dom.gameConsoleLog('Trying to catch ' + enemy.activePoke().pokeName() + '...', 'purple')
                     const selectedBall = (enemy.activePoke().shiny() ? player.bestAvailableBall() : player.selectedBall())
                     if (player.consumeBall(selectedBall)) {
@@ -1263,7 +1264,8 @@ const makeCombatLoop = (enemy, player, dom) => {
                         const rngHappened =
                             RNG(
                                 player.addPoke.bind(null, enemy.activePoke())
-                                , (enemy.activePoke().catchRate() * player.ballRNG(selectedBall)) / 3
+                                , enemy.activePoke().shiny() ? 100 : // skips catch rate for shinies ~XXVI_III_CX
+                                (enemy.activePoke().catchRate() * player.ballRNG(selectedBall)) / 3
                             )
                         if (rngHappened) {
                             dom.gameConsoleLog('You caught ' + enemy.activePoke().pokeName() + '!!', 'purple')
