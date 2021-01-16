@@ -394,24 +394,23 @@ const makeDomHandler = () => {
             $('.ball-ammount.' + ballType).innerHTML = ballsAmmount[ballType]
         })
     }
+    // fixed buggy checkboxes ~XXVI_III_CX
     const bindEvents = () => {
         $('#enableDelete').addEventListener( 'click', () => {
-            if ($(`#enablePokedex`).checked) {
-                $(`#enablePokedex`).checked = false;
-                userInteractions.enableViewPokedex();
-            }
+            $('#enableStorage').checked = false;
+            $(`#enablePokedex`).checked = false;
             userInteractions.enablePokeListDelete()
         })
 
         $('#enablePokedex').addEventListener( 'click', () => {
-            if ($(`#enableDelete`).checked) {
-                $(`#enableDelete`).checked = false;
-                userInteractions.enablePokeListDelete();
-            }
+            $('#enableStorage').checked = false;
+            $(`#enableDelete`).checked = false;
             userInteractions.enableViewPokedex()
         })
 
         $('#enableStorage').addEventListener( 'click', () => {
+            $(`#enablePokedex`).checked = false;
+            $(`#enableDelete`).checked = false;
             userInteractions.enableViewStorage()
         })
 
@@ -964,8 +963,14 @@ const makeUserInteractions = (player, enemy, dom, combatLoop) => {
             userSettings.currentRegionId = regionSelect.options[regionSelect.selectedIndex].value
             changeRoute(Object.keys(ROUTES[userSettings.currentRegionId])[0])
         },
-        enablePokeListDelete: () => {
+        // fixed buggy checkboxes ~XXVI_III_CX
+        enablePokeListDelete: () => { 
             dom.renderPokeList('playerPokes', player.pokemons(), player, '#enableDelete')
+            if (dom.checkConfirmed('#enableDelete')) {
+                document.querySelector('#playerPokesList').classList.remove('hidden')
+                document.querySelector('#playerPokeDex').classList.add('hidden')
+                document.querySelector('#playerStorage').classList.add('hidden')
+            }
         },
         enableViewPokedex: () => {
             if (dom.checkConfirmed('#enablePokedex')) {
