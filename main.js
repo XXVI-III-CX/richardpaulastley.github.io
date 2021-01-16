@@ -873,7 +873,7 @@ const makeEnemy = (starter) => {
             poke,
             recipe.minLevel + Math.round((Math.random() * (recipe.maxLevel - recipe.minLevel))),
             false,
-            Math.random() < (1 / (1 << 5 << 8))
+            Math.random() < (1 / (1 << 12)) // modified shiny rate to current gen's rate ~XXVI_III_CX
         )
     }
 
