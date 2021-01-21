@@ -2466,8 +2466,29 @@ const ROUTES = {
     }
 },
   Event: {
-      event1: {
+      den1: {
+      name: 'Den 1'
+    , pokes: ['GX-Venusaur'] 
+    , minLevel: 100
+    , maxLevel: 100
+    , unlocked: true
+    }
+    , den2: {
       name: 'Den 2'
+    , pokes: ['GX-Charizard'] 
+    , minLevel: 100
+    , maxLevel: 100
+    , unlocked: true
+    }
+    , den3: {
+      name: 'Den 3'
+    , pokes: ['GX-Blastoise'] 
+    , minLevel: 100
+    , maxLevel: 100
+    , unlocked: true
+    }
+    , den4: {
+      name: 'Den 4'
     , pokes: ['GX-Snorlax'] 
     , minLevel: 100
     , maxLevel: 100
